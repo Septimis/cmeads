@@ -14,6 +14,7 @@ function OnNavItemClicked(NavItem, ContentID)
 
 	// Move the navigation highlight element to hover over the appropriate element
 	NAV_HIGHLIGHT.style.left = `${NavItem.offsetLeft}px`;
+	NAV_HIGHLIGHT.style.top = `${NavItem.offsetTop}px`;
 	NAV_HIGHLIGHT.style.width = `${NavItem.getBoundingClientRect().width}px`;
 
 	CONTENT.style.display = 'block';

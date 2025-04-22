@@ -3,7 +3,6 @@ nav
 	position: relative;
 	padding: 0px;
 	margin: 0px auto;
-	flex-wrap: wrap;
 
 	border-radius: 8px;
 	box-shadow: 2px 0px 16px 4px #dfdfdf;
@@ -29,4 +28,20 @@ nav div
 	position: absolute;
 	background-color: var(--active-color);
 	opacity: 0.5;
+}
+
+@media (max-width: 	570px)
+{
+	nav.row { flex-direction: column; }
+
+	nav
+	{
+		width: 80vw;
+	}
+
+	nav div
+	{
+		width: fill-content;
+		text-align: center;
+	}
 }
