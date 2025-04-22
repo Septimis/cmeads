@@ -1,0 +1,24 @@
+/* Global Variables */
+:root
+{
+	--active-color: #00A;
+	--inactive-color: #6767c6;
+	--background-color: #f8f5f5;
+}
+
+body
+{
+	background-color: var(--background-color);
+}
+
+/* Global Styling */
+*
+{
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+.row, .col { display: flex; }
+.row { flex-direction: row; }
+.col { flex-direction: column; }
