@@ -1,3 +1,11 @@
+/* All logic with the navigation bar */
+
+/**
+ * Navigation Highlight
+ * 
+ * Handles the logic behind highlighting the active page.
+ * Takes into account a browser which resizes
+ */
 // Set the width/height of the navigation highlight element to be what the other elements have
 const NAV_HIGHLIGHT = document.getElementById('nav-highlight');
 NAV_HIGHLIGHT.style.height = `${document.getElementsByClassName("nav-item")[0].getBoundingClientRect().height}px`;
@@ -34,3 +42,21 @@ function OnNavItemClicked(NavItem, ContentID)
 
 // Simulate a click on the first nav element on script load
 OnNavItemClicked(document.getElementsByClassName('nav-item')[0], document.getElementsByClassName('page-content')[0].id);
+
+/**
+ * Header animation
+ * 
+ * Handles the logic of smoothly transitioning the header from floating to sticking to the top
+ */
+const header = document.getElementById('header-wrapper-id');
+window.addEventListener('scroll', () =>
+{
+	if(window.scrollY === 0)
+	{
+		header.classList.add('header-wrapper-expanded');
+	}
+	else
+	{
+		header.classList.remove('header-wrapper-expanded');
+	}
+});

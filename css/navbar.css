@@ -1,3 +1,37 @@
+.header-wrapper
+{
+	position: sticky;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+
+	min-width: max-content;
+	width: 50vw;
+
+	margin: 16px auto;
+	padding: 0px 16px 16px 16px;
+
+	background-color: var(--background-color);
+	box-shadow: 0px 0px 16px 4px var(--shadow-color);
+	border-radius: 12px;
+
+	transition: width 350ms ease, padding 350ms ease;
+}
+.header-wrapper-expanded
+{
+	width: 100vw;
+	margin: 0px auto;
+	padding: 16px;
+}
+
+#name
+{
+	text-align: center; 
+	margin: 16px;
+	margin-top: 0px;
+}
+
 nav
 {
 	position: relative;
@@ -5,7 +39,7 @@ nav
 	margin: 0px auto;
 
 	border-radius: 8px;
-	box-shadow: 2px 0px 16px 4px #dfdfdf;
+	box-shadow: 2px 0px 16px 4px var(--shadow-color);
 	width: fit-content;
 }
 nav div
