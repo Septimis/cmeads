@@ -1,0 +1,47 @@
+nav
+{
+	position: relative;
+	padding: 0px;
+	margin: 0px auto;
+
+	border-radius: 8px;
+	box-shadow: 2px 0px 16px 4px #dfdfdf;
+	width: fit-content;
+}
+nav div
+{
+	position: relative;
+	cursor: pointer;
+	padding: 8px 16px;
+	margin: 0px;
+	border-radius: 5px;
+	transition: 300ms;
+}
+
+/**
+ * A highlighted block which moves to cover the active page link
+ *
+ * The width & height are set manually in javascript so as to match the nav div width & height
+ */
+#nav-highlight
+{
+	position: absolute;
+	background-color: var(--active-color);
+	opacity: 0.5;
+}
+
+@media (max-width: 	570px)
+{
+	nav.row { flex-direction: column; }
+
+	nav
+	{
+		width: 80vw;
+	}
+
+	nav div
+	{
+		width: fill-content;
+		text-align: center;
+	}
+}
