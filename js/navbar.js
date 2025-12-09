@@ -38,6 +38,8 @@ function OnNavItemClicked(NavItem, ContentID)
 
 	// Move the navigation highlight element to hover over the appropriate element
 	place_nav_highlight();
+
+	// Close the side menu (if appropriate)
 }
 
 // Simulate a click on the first nav element on script load
@@ -59,4 +61,12 @@ window.addEventListener('scroll', () =>
 	{
 		header.classList.remove('header-wrapper-expanded');
 	}
+});
+
+/* Logic for hamburger menu transition */
+const hamburger_menu = document.getElementById('hamburger-menu');
+hamburger_menu.addEventListener('click', () =>
+{
+	hamburger_menu.classList.toggle('active');
+	header.classList.toggle('active');
 });
