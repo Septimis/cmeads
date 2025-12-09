@@ -40,7 +40,8 @@ function OnNavItemClicked(NavItem, ContentID)
 	place_nav_highlight();
 
 	// Close the side menu (if appropriate)
-	
+	document.getElementById('hamburger-menu').classList.remove('active');
+	document.getElementById('header-wrapper-id').classList.remove('active');
 }
 
 // Simulate a click on the first nav element on script load

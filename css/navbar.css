@@ -6,7 +6,7 @@
 	right: 0;
 	z-index: 1;
 
-	min-width: max-content;
+	min-width: 660px;
 	width: 60vw;
 
 	margin: 16px auto;
@@ -109,7 +109,7 @@ nav div
 	background-color: var(--background-color);
 }
 
-@media (max-width: 	570px)
+@media (max-width: 	700px)
 {
 	#header-wrapper-id
 	{
@@ -118,6 +118,7 @@ nav div
 		padding: 0px;
 		box-shadow: none;
 		width: 100vw;
+		min-width: max-content;
 		height: 100vh;
 		left: 100%;
 		transition: transform 300ms ease-in-out;
@@ -146,5 +147,10 @@ nav div
 	#hamburger-menu
 	{
 		display: flex;
+	}
+
+	#header-wrapper-id img
+	{
+		width: 50px;
 	}
 }
