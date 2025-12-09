@@ -40,6 +40,7 @@ function OnNavItemClicked(NavItem, ContentID)
 	place_nav_highlight();
 
 	// Close the side menu (if appropriate)
+	
 }
 
 // Simulate a click on the first nav element on script load

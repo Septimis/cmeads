@@ -7,11 +7,11 @@
 let isovalue = 0.5;
 
 // The number of cells horizontally and vertically within the array
-let horizontal_cells = -1;
-let vertical_cells = -1;
+let horizontal_cells = 10;
+let vertical_cells = -1; // Will be auto assigned later to fit the viewport
 
-// The number of pixels in between the cells. A lower number leads to more density
-let cell_spacing = 50;
+// The number of pixels in between the cells.
+let cell_spacing = -1;
 
 // The array of cells representing the grid
 let squares = [];
@@ -45,8 +45,8 @@ window.addEventListener('resize', () =>
 
 function render()
 {
-	horizontal_cells = Math.floor(window.innerWidth / cell_spacing);
-	vertical_cells = Math.floor(window.innerHeight / cell_spacing);
+	cell_spacing = window.innerWidth / horizontal_cells;
+	vertical_cells = Math.floor(window.innerHeight / cell_spacing) + 1;
 
 	CANVAS.width = window.innerWidth;
 	CANVAS.height = window.innerHeight;
@@ -88,14 +88,11 @@ function draw()
 		const y = Math.floor(i / horizontal_cells);
 		const y_coord = y * cell_spacing;
 
-		// Skip the cells at the right edge of the viewport
-		if(x === horizontal_cells - 1) { continue; }
-
 		// Skip the bottom most row
 		if(y - 1 === vertical_cells) { break; }
 
 		// Create a grid on screen
-		//CANVAS_CONTEXT.fillRect(x_coord, y_coord, 1, 1);
+		CANVAS_CONTEXT.fillRect(x_coord, y_coord, 1, 1);
 
 		const top_left = squares[y * horizontal_cells + x] > isovalue ? 1 : 0;
 		const top_right = squares[y * horizontal_cells + x + 1] > isovalue ? 1 : 0;
