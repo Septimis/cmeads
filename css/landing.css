@@ -7,7 +7,8 @@
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
 	margin: 0px auto;
-	background-color: var(--foreground-color);
+	background-color: rgba(var(--foreground-color), 0.8);
+	backdrop-filter: blur(6px);
 	z-index: 0;
 	position: relative;
 }

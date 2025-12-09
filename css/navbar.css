@@ -91,6 +91,24 @@ nav div
 	opacity: 0.5;
 }
 
+/* Settings Cog */
+#header-wrapper-id img
+{
+	position: absolute;
+	right: 16px;
+	bottom: 16px;
+
+	width: 32px;
+	height: auto;
+	border-radius: 100%;
+	padding: 4px;
+}
+#header-wrapper-id img:hover
+{
+	cursor: pointer;
+	background-color: var(--background-color);
+}
+
 @media (max-width: 	570px)
 {
 	#header-wrapper-id
