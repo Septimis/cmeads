@@ -37,8 +37,8 @@
 
 			<h1 id="name">Connor Meads</h1>
 
-			<nav class="row">
-				<div id="nav-highlight"></div>
+			<nav class="row radio-selector">
+				<div id="nav-highlight" class="highlighter"></div>
 				
 				<div class="nav-item" onclick="OnNavItemClicked(this, 'about-content')">ABOUT</div>
 				<div class="nav-item" onclick="OnNavItemClicked(this, 'projects-content')">PROJECTS</div>
@@ -47,7 +47,40 @@
 				<div class="nav-item" onclick="OnNavItemClicked(this, 'contact-content')">CONTACT</div>
 			</nav>
 
-			<img src="assets/images/settings-cog.svg" alt="settings-cog" />
+			<!-- Settings -->
+			<img src="assets/images/settings-cog.svg" alt="settings-cog" id="settings-icon" />
+			<div id="settings-menu">
+
+				<!-- Algorithm Navigation -->
+				<div id="background-algorithm-switch" class="row">
+					<div id="background-algorithm-highlight" class="highlighter"></div>
+
+					<div
+						id="marching-squares-option"
+						class="algorithm-switch-option"
+						onclick="on_algorithm_clicked(this, 'marching-squares-content')">
+
+						Marching Squares
+					</div>
+					<div
+						id="raindrops-option"
+						class="algorithm-switch-option"
+						onclick="on_algorithm_clicked(this, 'raindrops-content')">
+
+						Raindrops
+					</div>
+				</div>
+
+				<!-- Marching Squares Content -->
+				 <div id="marching-squares-content" class="algorithm-content col">
+					<h2>Marching Squares</h2>
+				 </div>
+
+				 <!-- Raindrops Content -->
+				  <div id="raindrops-content" class="algorithm-content col">
+					<h2>Raindrops</h2>
+				  </div>
+			</div>
 		</div>
 
 

@@ -18,9 +18,12 @@ window.addEventListener('resize', place_nav_highlight);
 // Sets the highlighted widget where the active navigation item is
 function place_nav_highlight()
 {
+	if(active_nav_item === null) { return; }
+
 	NAV_HIGHLIGHT.style.left = `${active_nav_item.offsetLeft}px`;
 	NAV_HIGHLIGHT.style.top = `${active_nav_item.offsetTop}px`;
 	NAV_HIGHLIGHT.style.width = `${active_nav_item.getBoundingClientRect().width}px`;
+	NAV_HIGHLIGHT.style.height = `${active_nav_item.getBoundingClientRect().height}px`;
 }
 
 // Handle displaying the correct content according to what NavItem was clicked.
@@ -71,4 +74,57 @@ hamburger_menu.addEventListener('click', () =>
 {
 	hamburger_menu.classList.toggle('active');
 	header.classList.toggle('active');
+});
+
+/* Settings Menu */
+const SETTINGS_ICON = document.getElementById('settings-icon');
+const SETTINGS_MENU = document.getElementById('settings-menu');
+SETTINGS_ICON.addEventListener('click', () =>
+{
+	SETTINGS_ICON.classList.toggle('active');
+	SETTINGS_MENU.classList.toggle('active');
+
+	if(SETTINGS_MENU.classList.contains('active'))
+	{
+		SETTINGS_MENU.style.bottom = `-${SETTINGS_MENU.getBoundingClientRect().height}px`;
+		place_algorithm_nav_highlight();
+	}
+});
+
+/* Settings : Algorithm Selection */
+const ALGORITHM_NAV = document.getElementById('background-algorithm-highlight');
+
+let active_algorithm = null;
+
+// Handle resizing events with the algorithm placement
+window.addEventListener('resize', place_algorithm_nav_highlight);
+function place_algorithm_nav_highlight()
+{
+	ALGORITHM_NAV.style.left = `${active_algorithm.offsetLeft}px`;
+	ALGORITHM_NAV.style.top = `${active_algorithm.offsetTop}px`;
+	ALGORITHM_NAV.style.width = `${active_algorithm.getBoundingClientRect().width}px`;
+	ALGORITHM_NAV.style.height = `${active_algorithm.getBoundingClientRect().height}px`;
+}
+
+function on_algorithm_clicked(algorithm, content_id)
+{
+	active_algorithm = algorithm;
+
+	for(let element of document.getElementsByClassName('algorithm-content'))
+	{
+		element.style.display = 'none';
+	}
+	document.getElementById(content_id).style.display = 'block';
+
+	place_algorithm_nav_highlight();
+}
+on_algorithm_clicked(document.getElementsByClassName('algorithm-switch-option')[0], document.getElementsByClassName('algorithm-content')[0].id);
+
+document.addEventListener('click', (event) =>
+{
+	if(!SETTINGS_MENU.contains(event.target) && !SETTINGS_ICON.contains(event.target))
+	{
+		SETTINGS_MENU.classList.remove('active');
+		SETTINGS_ICON.classList.remove('active');
+	}
 });
