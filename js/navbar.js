@@ -55,25 +55,25 @@ OnNavItemClicked(document.getElementsByClassName('nav-item')[0], document.getEle
  * 
  * Handles the logic of smoothly transitioning the header from floating to sticking to the top
  */
-const header = document.getElementById('header-wrapper-id');
+const HEADER = document.getElementById('header-wrapper-id');
 window.addEventListener('scroll', () =>
 {
 	if(window.scrollY === 0)
 	{
-		header.classList.add('header-wrapper-expanded');
+		HEADER.classList.add('header-wrapper-expanded');
 	}
 	else
 	{
-		header.classList.remove('header-wrapper-expanded');
+		HEADER.classList.remove('header-wrapper-expanded');
 	}
 });
 
 /* Logic for hamburger menu transition */
-const hamburger_menu = document.getElementById('hamburger-menu');
-hamburger_menu.addEventListener('click', () =>
+const HAMBURGER_MENU = document.getElementById('hamburger-menu');
+HAMBURGER_MENU.addEventListener('click', () =>
 {
-	hamburger_menu.classList.toggle('active');
-	header.classList.toggle('active');
+	HAMBURGER_MENU.classList.toggle('active');
+	HEADER.classList.toggle('active');
 });
 
 /* Settings Menu */
@@ -86,7 +86,15 @@ SETTINGS_ICON.addEventListener('click', () =>
 
 	if(SETTINGS_MENU.classList.contains('active'))
 	{
-		SETTINGS_MENU.style.bottom = `-${SETTINGS_MENU.getBoundingClientRect().height}px`;
+		if(window.innerWidth > 700)
+		{
+			SETTINGS_MENU.style.top = `${HEADER.getBoundingClientRect().height}px`;
+		}
+		else
+		{
+			SETTINGS_MENU.style.top = '50px';
+		}
+
 		place_algorithm_nav_highlight();
 	}
 });

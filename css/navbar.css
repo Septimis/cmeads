@@ -129,13 +129,15 @@ nav div
 }
 #settings-menu.active
 {
-	display: block;
+	display: flex;
+	flex-direction: column;
 }
 
 #background-algorithm-switch
 {
 	flex-wrap: nowrap;
 	padding: 16px;
+	justify-content: center;
 }
 #marching-squares-option
 {
@@ -209,5 +211,11 @@ nav div
 	#header-wrapper-id img
 	{
 		width: 50px;
+	}
+
+	#settings-menu
+	{
+		width: 100vw;
+		height: 80vh;
 	}
 }
