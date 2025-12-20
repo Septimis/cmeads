@@ -138,9 +138,14 @@ document.addEventListener('click', (event) =>
 });
 
 /* Settings Inputs / Outputs */
+document.getElementById('ms-refresh-rate-input').addEventListener('input', () =>
+{
+	document.getElementById('ms-refresh-rate-output').value = document.getElementById('ms-refresh-rate-input').value + ' Hz';
+});
+
 document.getElementById('ms-isovalue-input').addEventListener('input', () =>
 {
-	document.getElementById('ms-isovalue-output').value = document.getElementById('ms-isovalue-input').value;
+	document.getElementById('ms-isovalue-output').value = document.getElementById('ms-isovalue-input').value + '%';
 });
 
 document.getElementById('ms-h-cells-input').addEventListener('input', () =>

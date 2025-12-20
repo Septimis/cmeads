@@ -3,14 +3,24 @@
  * See https://en.wikipedia.org/wiki/Marching_squares
  */
 
+// How many times per second the animation updates (Hz)
+let refresh_rate = 1;
+
+const REFRESH_RATE_INPUT = document.getElementById('ms-refresh-rate-input');
+REFRESH_RATE_INPUT.addEventListener('input', () =>
+{
+	refresh_rate = Number(REFRESH_RATE_INPUT.value);
+});
+
 // The arbitrary threshold to determine what lines are drawn
 let isovalue = 0.5;
 
+// The html input found within the DOM
 const ISOVALUE_INPUT = document.getElementById('ms-isovalue-input');
 ISOVALUE_INPUT.addEventListener('input', () =>
 {
-	isovalue = Number(ISOVALUE_INPUT.value) / 100.0;
-	render();
+	isovalue = ((Number(ISOVALUE_INPUT.value) / 100) * 50) / 100; // Because the user sees a percentage, I use a 0-50 (0.0-0.5) scale
+	initialize();
 });
 
 // The number of cells horizontally and vertically within the array
@@ -21,8 +31,11 @@ const HORIZONTAL_CELLS_INPUT = document.getElementById('ms-h-cells-input');
 HORIZONTAL_CELLS_INPUT.addEventListener('input', () =>
 {
 	horizontal_cells = Number(HORIZONTAL_CELLS_INPUT.value);
-	render();
+	initialize();
 });
+
+// Controls if cell spacing indicators are shown
+document.getElementById('ms-cell-markers').addEventListener('input', initialize);
 
 // The number of pixels in between the cells.
 let cell_spacing = -1;
@@ -37,10 +50,7 @@ const MARCHING_SQUARES_CONTAINER = document.getElementById('marching-squares-con
 const CANVAS = MARCHING_SQUARES_CONTAINER.firstElementChild;
 CANVAS.width = window.innerWidth;
 CANVAS.height = window.innerHeight;
-if(!CANVAS.getContext)
-{
-	alert('Could not get the canvas to draw background animation!');
-}
+if(!CANVAS.getContext) { alert('Could not get the canvas to draw background animation!'); }
 const CANVAS_CONTEXT = CANVAS.getContext('2d');
 
 // number of ms to wait before redrawing the squares
@@ -54,10 +64,11 @@ window.addEventListener('resize', () =>
 {
 	clearTimeout(resize_timer_id);
 
-	resize_timer_id = setTimeout(render, resize_timer);
+	resize_timer_id = setTimeout(initialize, resize_timer);
 });
 
-function render()
+// Initial data setup for Marching Squares
+function initialize()
 {
 	cell_spacing = window.innerWidth / horizontal_cells;
 	vertical_cells = Math.floor(window.innerHeight / cell_spacing) + 1;
@@ -67,17 +78,19 @@ function render()
 
 	squares = new Array(horizontal_cells * vertical_cells);
 
-	populate_data();
+	randomize_data();
 	draw();
 }
 
-function populate_data()
+function randomize_data()
 {
 	for(let i = 0; i < squares.length; i++)
 	{
 		squares[i] = Math.random().toFixed(2);
 	}
 }
+
+
 
 function draw()
 {
@@ -90,29 +103,36 @@ function draw()
 		squares.length > 0;
 	if(!can_draw) { return; }
 
+	const should_display_cell_markers = document.getElementById('ms-cell-markers').checked;
+
 	CANVAS_CONTEXT.beginPath();
 	CANVAS_CONTEXT.fillStyle = 'black';
 	for(let i = 0; i < squares.length; i++)
 	{
-		// Horizontal coordinate on the screen
-		const x = i % horizontal_cells;
-		const x_coord = x * cell_spacing;
+		
+		const x = i % horizontal_cells; // The x-coordinate in the 'squares' array
+		const x_coord = x * cell_spacing; // Horizontal coordinate on the screen
 
-		// Vertical coordinate on the screen
-		const y = Math.floor(i / horizontal_cells);
-		const y_coord = y * cell_spacing;
+		
+		const y = Math.floor(i / horizontal_cells); // The y-coordinate in the 'squares' array
+		const y_coord = y * cell_spacing; // Vertical coordinate on the screen
 
 		// Skip the bottom most row
 		if(y - 1 === vertical_cells) { break; }
 
 		// Create a grid on screen
-		CANVAS_CONTEXT.fillRect(x_coord, y_coord, 1, 1);
+		if(should_display_cell_markers)
+		{
+			CANVAS_CONTEXT.fillRect(x_coord, y_coord, 1, 1);
+		}
 
+		/* Determine which corners are 'active' based on isovalue */
 		const top_left = squares[y * horizontal_cells + x] > isovalue ? 1 : 0;
 		const top_right = squares[y * horizontal_cells + x + 1] > isovalue ? 1 : 0;
 		const bottom_right = squares[(y + 1) * horizontal_cells + x  + 1] > isovalue ? 1 : 0;
 		const bottom_left = squares[(y + 1) * horizontal_cells + x] > isovalue ? 1 : 0;
 
+		// Determine which of the 16 cases our combination of corners is
 		const binary_index = (top_left << 3) | (top_right << 2) | (bottom_right << 1) | (bottom_left << 0);
 
 		switch(binary_index)
@@ -127,7 +147,6 @@ function draw()
 			case 0b1110:
 				CANVAS_CONTEXT.moveTo(x_coord, y_coord + cell_spacing / 2);
 				CANVAS_CONTEXT.lineTo(x_coord + cell_spacing / 2, y_coord + cell_spacing);
-				CANVAS_CONTEXT.stroke();
 				break;
 
 			// Bottom right line
@@ -135,7 +154,6 @@ function draw()
 			case 0b1101:
 				CANVAS_CONTEXT.moveTo(x_coord + cell_spacing / 2, y_coord + cell_spacing);
 				CANVAS_CONTEXT.lineTo(x_coord + cell_spacing, y_coord + cell_spacing / 2);
-				CANVAS_CONTEXT.stroke();
 				break;
 
 			// Horizontal line
@@ -143,7 +161,6 @@ function draw()
 			case 0b1100:
 				CANVAS_CONTEXT.moveTo(x_coord, y_coord + cell_spacing / 2);
 				CANVAS_CONTEXT.lineTo(x_coord + cell_spacing, y_coord + cell_spacing / 2);
-				CANVAS_CONTEXT.stroke();
 				break;
 
 			// Upper right line
@@ -151,18 +168,15 @@ function draw()
 			case 0b1011:
 				CANVAS_CONTEXT.moveTo(x_coord + cell_spacing / 2, y_coord);
 				CANVAS_CONTEXT.lineTo(x_coord + cell_spacing, y_coord + cell_spacing / 2);
-				CANVAS_CONTEXT.stroke();
 				break;
 
 			// Diagonal incline lines
 			case 0b0101:
 				CANVAS_CONTEXT.moveTo(x_coord, y_coord + cell_spacing / 2);
 				CANVAS_CONTEXT.lineTo(x_coord + cell_spacing / 2, y_coord);
-				CANVAS_CONTEXT.stroke();
 
 				CANVAS_CONTEXT.moveTo(x_coord + cell_spacing / 2, y_coord + cell_spacing);
 				CANVAS_CONTEXT.lineTo(x_coord + cell_spacing, y_coord + cell_spacing / 2);
-				CANVAS_CONTEXT.stroke();
 
 				break;
 
@@ -171,7 +185,6 @@ function draw()
 			case 0b1001:
 				CANVAS_CONTEXT.moveTo(x_coord + cell_spacing / 2, y_coord);
 				CANVAS_CONTEXT.lineTo(x_coord + cell_spacing / 2, y_coord + cell_spacing);
-				CANVAS_CONTEXT.stroke();
 				break;
 
 			// Upper left line
@@ -179,18 +192,15 @@ function draw()
 			case 0b1000:
 				CANVAS_CONTEXT.moveTo(x_coord, y_coord + cell_spacing / 2);
 				CANVAS_CONTEXT.lineTo(x_coord + cell_spacing / 2, y_coord);
-				CANVAS_CONTEXT.stroke();
 				break;
 
 			// Diagonal decline lines
 			case 0b1010:
 				CANVAS_CONTEXT.moveTo(x_coord, y_coord + cell_spacing / 2);
 				CANVAS_CONTEXT.lineTo(x_coord + cell_spacing / 2, y_coord + cell_spacing);
-				CANVAS_CONTEXT.stroke();
 
 				CANVAS_CONTEXT.moveTo(x_coord + cell_spacing / 2, y_coord);
 				CANVAS_CONTEXT.lineTo(x_coord + cell_spacing, y_coord + cell_spacing / 2);
-				CANVAS_CONTEXT.stroke();
 				break;
 
 			default:
@@ -198,6 +208,8 @@ function draw()
 				break;
 		}
 	}
+
+	CANVAS_CONTEXT.stroke();
 }
 
-render();
+initialize();

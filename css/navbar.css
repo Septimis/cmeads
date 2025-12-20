@@ -179,6 +179,16 @@ nav div
 	text-align: center;
 	margin: 24px 0px;
 }
+.algorithm-more-info
+{
+	position: absolute;
+	right: 4px;
+	top: 4px;
+	width: 16px;
+	height: auto;
+	opacity: 50%;
+}
+.algorithm-more-info:hover { opacity: 100%; }
 .algorithm-input-wrapper label
 {
 	position: absolute;
@@ -187,6 +197,7 @@ nav div
 	transform: translateX(-50%);
 	background-color: var(--background-color);
 	padding: 0px 32px;
+	width: max-content;
 }
 .algorithm-input-wrapper input[type="range"]
 {
