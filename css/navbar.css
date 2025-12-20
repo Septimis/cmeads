@@ -126,6 +126,8 @@ nav div
 	z-index: 0;
 	border-bottom-left-radius: 12px;
 	border-bottom-right-radius: 12px;
+
+	padding: 16px;
 }
 #settings-menu.active
 {
@@ -135,8 +137,8 @@ nav div
 
 #background-algorithm-switch
 {
+	margin-bottom: 12px;
 	flex-wrap: nowrap;
-	padding: 16px;
 	justify-content: center;
 }
 #marching-squares-option
@@ -166,6 +168,29 @@ nav div
 .algorithm-content
 {
 	display: none;
+}
+.algorithm-input-wrapper
+{
+	flex-wrap: nowrap;
+	border: 1px solid black;
+	border-radius: 4px;
+	position: relative;
+	padding: 12px;
+	text-align: center;
+	margin: 24px 0px;
+}
+.algorithm-input-wrapper label
+{
+	position: absolute;
+	top: -10px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: var(--background-color);
+	padding: 0px 32px;
+}
+.algorithm-input-wrapper input[type="range"]
+{
+	width: 100%;
 }
 
 @media (max-width: 	700px)

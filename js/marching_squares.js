@@ -6,9 +6,23 @@
 // The arbitrary threshold to determine what lines are drawn
 let isovalue = 0.5;
 
+const ISOVALUE_INPUT = document.getElementById('ms-isovalue-input');
+ISOVALUE_INPUT.addEventListener('input', () =>
+{
+	isovalue = Number(ISOVALUE_INPUT.value) / 100.0;
+	render();
+});
+
 // The number of cells horizontally and vertically within the array
 let horizontal_cells = 10;
 let vertical_cells = -1; // Will be auto assigned later to fit the viewport
+
+const HORIZONTAL_CELLS_INPUT = document.getElementById('ms-h-cells-input');
+HORIZONTAL_CELLS_INPUT.addEventListener('input', () =>
+{
+	horizontal_cells = Number(HORIZONTAL_CELLS_INPUT.value);
+	render();
+});
 
 // The number of pixels in between the cells.
 let cell_spacing = -1;

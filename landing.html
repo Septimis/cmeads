@@ -73,7 +73,21 @@
 
 				<!-- Marching Squares Content -->
 				 <div id="marching-squares-content" class="algorithm-content col">
-					<h2>Marching Squares</h2>
+
+					<!-- Isovalue -->
+					<div class="algorithm-input-wrapper col">
+						<label for="ms-isovalue" class="algorithm-label">Isovalue</label>
+						<output for="ms-isovalue" id="ms-isovalue-output">50</output>
+						<input type="range" min="0" max="100" step="5" value="50" name="ms-isovalue" id="ms-isovalue-input" />
+					</div>
+
+					<!-- Horizontal Cells -->
+					<div class="algorithm-input-wrapper col">
+						<label for="ms-h-cells" class="algorithm-label">Cells</label>
+						<output for="ms-h-cells" id="ms-h-cells-output">10</output>
+						<input type="range" min="5" max="50" step="5" value="10" name="ms-h-cells" id="ms-h-cells-input" />
+					</div>
+					
 				 </div>
 
 				 <!-- Raindrops Content -->

@@ -136,3 +136,14 @@ document.addEventListener('click', (event) =>
 		SETTINGS_ICON.classList.remove('active');
 	}
 });
+
+/* Settings Inputs / Outputs */
+document.getElementById('ms-isovalue-input').addEventListener('input', () =>
+{
+	document.getElementById('ms-isovalue-output').value = document.getElementById('ms-isovalue-input').value;
+});
+
+document.getElementById('ms-h-cells-input').addEventListener('input', () =>
+{
+	document.getElementById('ms-h-cells-output').value = document.getElementById('ms-h-cells-input').value;
+});
