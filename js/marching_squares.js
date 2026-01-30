@@ -6,11 +6,21 @@
 // How many times per second the animation updates (Hz)
 let refresh_rate = 1;
 
+// The ID associated with the refresh timer
+let refresh_timer_id = 0;
+
 const REFRESH_RATE_INPUT = document.getElementById('ms-refresh-rate-input');
-REFRESH_RATE_INPUT.addEventListener('input', () =>
+REFRESH_RATE_INPUT.addEventListener('input', OnRefreshRateChanged);
+function OnRefreshRateChanged()
 {
 	refresh_rate = Number(REFRESH_RATE_INPUT.value);
-});
+	clearInterval(refresh_timer_id);
+
+	if(refresh_rate > 0)
+	{
+		refresh_timer_id = setInterval(step, 1_000 / refresh_rate);
+	}
+}
 
 // The arbitrary threshold to determine what lines are drawn
 let isovalue = 0.5;
@@ -78,10 +88,13 @@ function initialize()
 
 	squares = new Array(horizontal_cells * vertical_cells);
 
-	randomize_data();
-	draw();
+	OnRefreshRateChanged();
+
+	// Start the display
+	step();
 }
 
+// Random noise
 function randomize_data()
 {
 	for(let i = 0; i < squares.length; i++)
@@ -90,7 +103,14 @@ function randomize_data()
 	}
 }
 
+// Implements a noise algorithm & draws at the specified refresh rate
+function step()
+{
+	CANVAS_CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
 
+	randomize_data();
+	draw();
+}
 
 function draw()
 {
