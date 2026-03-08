@@ -10,16 +10,21 @@ let refresh_rate = 1;
 let refresh_timer_id = 0;
 
 const REFRESH_RATE_INPUT = document.getElementById('ms-refresh-rate-input');
-REFRESH_RATE_INPUT.addEventListener('input', OnRefreshRateChanged);
-function OnRefreshRateChanged()
+REFRESH_RATE_INPUT.addEventListener('input', StartTick);
+function StartTick()
 {
 	refresh_rate = Number(REFRESH_RATE_INPUT.value);
 	clearInterval(refresh_timer_id);
 
+	// Call the tick function on the specified Hz
 	if(refresh_rate > 0)
 	{
-		refresh_timer_id = setInterval(step, 1_000 / refresh_rate);
+		refresh_timer_id = setInterval(tick, 1_000 / refresh_rate);
+		return;
 	}
+
+	// Tick just the once since our refresh rate is 0
+	tick();
 }
 
 // The arbitrary threshold to determine what lines are drawn
@@ -88,10 +93,7 @@ function initialize()
 
 	squares = new Array(horizontal_cells * vertical_cells);
 
-	OnRefreshRateChanged();
-
-	// Start the display
-	step();
+	StartTick();
 }
 
 // Random noise
@@ -103,8 +105,13 @@ function randomize_data()
 	}
 }
 
+// Smooth, but random noise
+function perlin_noise()
+{
+}
+
 // Implements a noise algorithm & draws at the specified refresh rate
-function step()
+function tick()
 {
 	CANVAS_CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
 

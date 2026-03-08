@@ -78,7 +78,7 @@
 					 <div class="algorithm-input-wrapper col">
 						<img src="assets/images/question-mark.svg" alt="question-mark" title="How many times per second the animation updates (Hz)" class="algorithm-more-info" />
 
-						<label for="ms-refresh-rate" class="algorithm-label">Refresh Rate</label>
+						<h3>Refresh Rate</h3>
 						<output for="ms-refresh-rate" id="ms-refresh-rate-output">1 Hz</output>
 						<input type="range" min="0" max="30" step="1" value="1" name="ms-refresh-rate" id="ms-refresh-rate-input" />
 					 </div>
@@ -87,7 +87,7 @@
 					<div class="algorithm-input-wrapper col">
 						<img src="assets/images/question-mark.svg" alt="question-mark" title="Determines how likely lines form" class="algorithm-more-info"/>
 
-						<label for="ms-isovalue" class="algorithm-label">Isovalue</label>
+						<h3>IsoValue</h3>
 						<output for="ms-isovalue" id="ms-isovalue-output">100%</output>
 						<input type="range" min="0" max="100" step="5" value="100" name="ms-isovalue" id="ms-isovalue-input" />
 					</div>
@@ -96,16 +96,35 @@
 					<div class="algorithm-input-wrapper col">
 						<img src="assets/images/question-mark.svg" alt="question-mark" title="Indicates how many cells are drawn. More cells = higher density" class="algorithm-more-info"/>
 
-						<label for="ms-h-cells" class="algorithm-label">Cells</label>
+						<h3>Cells</h3>
 						<output for="ms-h-cells" id="ms-h-cells-output">10</output>
 						<input type="range" min="10" max="500" step="10" value="10" name="ms-h-cells" id="ms-h-cells-input" />
+					</div>
+
+					<!-- Data generation technique -->
+					<div class="algorithm-input-wrapper col">
+						<img src="assets/images/question-mark.svg" alt="question-mark" title="Indicates how the data is generated" class="algorithm-more-info"/>
+
+						<h3>Data Generation</h3>
+
+						<table id="ms-data-table">
+							<tr>
+								<td><label for="ms-perlin-data">Smooth</label></td>
+								<td><input id="ms-perlin-data" type="radio" name="ms-data" checked /></td>
+							</tr>
+
+							<tr>
+								<td><label for="ms-random-data">Random</label></td>
+								<td><input id="ms-random-data" type="radio" name="ms-data" /></td>
+							</tr>
+						</table>
 					</div>
 
 					<!-- Display cell markers -->
 					<div class="algorithm-input-wrapper col">
 						<img src="assets/images/question-mark.svg" alt="question-mark" title="Determines if dots are placed to mark where cells start & stop" class="algorithm-more-info"/>
 
-						<label for="ms-cell-markers" class="algorithm-label">Display Cell Markers</label>
+						<h3>Display Cell Markers</h3>
 						<input type="checkbox" name="ms-cell-markers" id="ms-cell-markers" checked />
 					</div>
 					

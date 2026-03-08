@@ -178,6 +178,7 @@ nav div
 	padding: 12px;
 	text-align: center;
 	margin: 24px 0px;
+	justify-content: center;
 }
 .algorithm-more-info
 {
@@ -189,9 +190,11 @@ nav div
 	opacity: 50%;
 }
 .algorithm-more-info:hover { opacity: 100%; }
-.algorithm-input-wrapper label
+.algorithm-input-wrapper h3
 {
 	position: absolute;
+	font-size: 16px;
+	font-weight: 200;
 	top: -10px;
 	left: 50%;
 	transform: translateX(-50%);
@@ -203,6 +206,14 @@ nav div
 {
 	width: 100%;
 }
+
+#ms-data-table
+{
+	width: min-content;
+	margin: auto;
+	text-align: left;
+}
+#ms-data-table td { padding: 2px 4px; }
 
 @media (max-width: 	700px)
 {
